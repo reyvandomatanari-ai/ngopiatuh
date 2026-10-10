@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warkop Digital - Tempat Nongkrong & Ngopi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f7f5f0;
+            color: #333;
+        }
+
+        header {
+            background-color: #4a3525;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 24px;
+            color: #d4a373;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
+            padding-bottom: 100px;
+        }
+
+        .section-title {
+            margin: 20px 0 10px;
+            font-size: 18px;
+            color: #4a3525;
+            border-bottom: 2px solid #d4a373;
+            padding-bottom: 5px;
+        }
+
+        .menu-item {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .menu-info h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .menu-info p {
+            color: #e67e22;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .counter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-qty {
+            background-color: #d4a373;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-qty:active {
+            background-color: #4a3525;
+        }
+
+        .qty-val {
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Ringkasan & Tombol Order Mandatori Bawah */
+        .cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #4a3525;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+        }
+
+        .total-price h4 {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .total-price p {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d4a373;
+        }
+
+        .btn-order {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-order:hover {
+            background-color: #1ebd54;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>☕ WARKOP DIGITAL</h1>
+        <p>Pesan online, bayar di kasir / COD saat siap!</p>
+    </header>
+
+    <div class="container">
+        <!-- KATEGORI MINUMAN -->
+        <div class="section-title">☕ Minuman Hangat / Dingin</div>
+        
+        <div class="menu-item" data-id="1" data-nama="Kopi Hitam (Kopi Lelet)" data-harga="5000">
+            <div class="menu-info">
+                <h3>Kopi Hitam</h3>
+                <p>Rp 5.000</p>
+            </div>
+            <div class="counter">
+                <button class="btn-qty" onclick="ubahJumlah(1, -1)">-</button>
+                <span class="qty-val" id="qty-1">0</span>
+                <button class="btn-qty" onclick="ubahJumlah(1, 1)">+</button>
+            </div>
+        </div>
+
+        <div class="menu-item" data-id="2" data-nama="Es Kopi Susu" data-harga="7000">
+            <div class="menu-info">
+                <h3>Es Kopi Susu</h3>
+                <p>Rp 7.000</p>
+            </div>
+            <div class="counter">
+                <button class="btn-qty" onclick="ubahJumlah(2, -1)">-</button>
+                <span class="qty-val" id="qty-2">0</span>
+                <button class="btn-qty" onclick="ubahJumlah(2, 1)">+</button>
+            </div>
+        </div>
+
+        <div class="menu-item" data-id="3" data-nama="Es Teh Manis" data-harga="4000">
+            <div class="menu-info">
+                <h3>Es Teh Manis</h3>
+                <p>Rp 4.000</p>
+            </div>
+            <div class="counter">
+                <button class="btn-qty" onclick="ubahJumlah(3, -1)">-</button>
+                <span class="qty-val" id="qty-3">0</span>
+                <button class="btn-qty" onclick="ubahJumlah(3, 1)">+</button>
+            </div>
+        </div>
+
+        <!-- KATEGORI MAKANAN -->
+        <div class="section-title">🍳 Makanan & Camilan</div>
+
+        <div class="menu-item" data-id="4" data-nama="Indomie Goreng + Telur" data-harga="10000">
+            <div class="menu-info">
+                <h3>Indomie Goreng + Telur</h3>
+                <p>Rp 10.000</p>
+            </div>
+            <div class="counter">
+                <button class="btn-qty" onclick="ubahJumlah(4, -1)">-</button>
+                <span class="qty-val" id="qty-4">0</span>
+                <button class="btn-qty" onclick="ubahJumlah(4, 1)">+</button>
+            </div>
+        </div>
+
+        <div class="menu-item" data-id="5" data-nama="Gorengan (Bakwan/Tahu/Tempe)" data-harga="2000">
+            <div class="menu-info">
+                <h3>Gorengan (Per Porsi isi 2)</h3>
+                <p>Rp 2.000</p>
+            </div>
+            <div class="counter">
+                <button class="btn-qty" onclick="ubahJumlah(5, -1)">-</button>
+                <span class="qty-val" id="qty-5">0</span>
+                <button class="btn-qty" onclick="ubahJumlah(5, 1)">+</button>
+            </div>
+        </div>
+
+        <div class="menu-item" data-id="6" data-nama="Roti Bakar Cokelat" data-harga="8000">
+            <div class="menu-info">
+                <h3>Roti Bakar Cokelat</h3>
+                <p>Rp 8.000</p>
+            </div>
+            <div class="counter">
+                <button class="btn-qty" onclick="ubahJumlah(6, -1)">-</button>
+                <span class="qty-val" id="qty-6">0</span>
+                <button class="btn-qty" onclick="ubahJumlah(6, 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ringkasan Order & Tombol WA -->
+    <div class="cart-bar">
+        <div class="total-price">
+            <h4>Total Bayar:</h4>
+            <p id="total-harga">Rp 0</p>
+        </div>
+        <button class="btn-order" onclick="kirimPesanan()">Pesan Sekarang</button>
+    </div>
+
+    <script>
+        // Mengelola data keranjang belanja
+        let keranjang = {};
+        
+        // Nomor WhatsApp Warkop Anda (Ganti dengan nomor Anda, awali dengan 62)
+        const NOMOR_WHATSAPP = "6281234567890";
+
+        function ubahJumlah(id, perubahan) {
+            const itemElement = document.querySelector(`.menu-item[data-id="${id}"]`);
+            const nama = itemElement.getAttribute('data-nama');
+            const harga = parseInt(itemElement.getAttribute('data-harga'));
+            
+            if (!keranjang[id]) {
+                keranjang[id] = { nama: nama, harga: harga, qty: 0 };
+            }
+
+            keranjang[id].qty += perubahan;
+
+            // Cegah nilai minus
+            if (keranjang[id].qty < 0) {
+                keranjang[id].qty = 0;
+            }
+
+            // Update angka di layar
+            document.getElementById(`qty-${id}`).innerText = keranjang[id].qty;
+
+            hitungTotal();
+        }
+
+        function hitungTotal() {
+            let total = 0;
+            for (let id in keranjang) {
+                total += keranjang[id].harga * keranjang[id].qty;
+            }
+            document.getElementById('total-harga').innerText = "Rp " + total.toLocaleString('id-ID');
+        }
+
+        function kirimPesanan() {
+            let teksPesanan = "*Halo Warkop Digital, Saya Mau Pesan:*%0A%0A";
+            let total = 0;
+            let adaItem = false;
+
+            for (let id in keranjang) {
+                if (keranjang[id].qty > 0) {
+                    adaItem = true;
+                    let subtotal = keranjang[id].harga * keranjang[id].qty;
+                    teksPesanan += `- *${keranjang[id].nama}* (x${keranjang[id].qty}) = Rp ${subtotal.toLocaleString('id-ID')}%0A`;
+                    total += subtotal;
+                }
+            }
+
+            if (!adaItem) {
+                alert("Silakan pilih menu terlebih dahulu!");
+                return;
+            }
+
+            teksPesanan += `%0A*Total Bayar:* Rp ${total.toLocaleString('id-ID')}%0A`;
+            teksPesanan += "*Metode:* Dine-in (Makan di tempat) / Ambil Sendiri";
+
+            // Redirect otomatis ke WhatsApp pembeli
+            window.open(`https://wa.me{NOMOR_WHATSAPP}?text=${teksPesanan}`, '_blank');
+        }
+    </script>
+</body>
+</html>
